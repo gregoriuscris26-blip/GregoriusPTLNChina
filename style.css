@@ -1,0 +1,461 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* ================= SLIDE UMUM ================= */
+.slide {
+    height: 100dvh;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* ================= SLIDE 1 ================= */
+.slide1 {
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+        url("chiang-kai-shek-memorial-hall-night-taipei-taiwan-translation-liberty-square.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* ================= SLIDE 2 ================= */
+.slide2 {
+    overflow: hidden;
+}
+
+/* Overlay hitam untuk slide2 (karena pakai video) */
+.slide2::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+    pointer-events: none;
+}
+.slide3::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+/* ================= VIDEO BG ================= */
+.bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;   /* WAJIB */
+    z-index: 0;
+}
+
+/* ================= CONTENT ================= */
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    z-index: 2;
+}
+
+.content h2 {
+    font-size: 60px;
+}
+
+.content p {
+    font-size: 20px;
+}
+
+/* ================= SOSMED ================= */
+.social {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    z-index: 3;
+}
+
+.social a {
+    color: white;
+    font-size: 24px;
+    margin-left: 15px;
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 3;
+}
+
+.social a:hover {
+    color: cyan;
+    transform: scale(1.2);
+    z-index: 3;
+}
+
+/* ================= JUDUL ================= */
+.judul {
+    font-size: 100px;
+    color: azure;
+    text-shadow: 2px 2px 5px black;
+    z-index: 2;
+}
+.under {
+   margin-top: 20px;
+   font-size: 22px;
+   color: white;
+   z-index: 2;
+   text-shadow: 2px 2px 5px black;
+   font-family: 'Open Sans', sans-serif;
+}
+
+/* ================= LANYARD ================= */
+.lanyard {
+    position: absolute;
+    top: 0;
+    z-index: 2;
+}
+
+.kiri {
+    left: 50px;
+}
+
+.kanan {
+    right: 50px;
+}
+
+.card {
+    margin-top: 80px;
+    width: 150px;
+    background: white;
+    border-radius: 15px;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    animation: float 3s ease-in-out infinite;
+}
+
+.card img,
+.card video {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+/* ================= VIDEO TENGAH ================= */
+
+.video-wrapper {
+    position: absolute;
+    top: 50%;
+    right: 150px;
+    transform: translateY(-50%);
+    width: 60%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9;
+    z-index: 2;
+}
+
+/* Video asli */
+.main-video {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Glow effect */
+.video-glow {
+    position: absolute;
+    inset: -20px;
+    background: radial-gradient(circle, rgba(68, 194, 194, 0.6) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: 1;
+    border-radius: 30px;
+    animation: glowPulse 3s ease-in-out infinite alternate;
+}
+
+/* Animasi glow */
+@keyframes glowPulse {
+    from {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+.video-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+/* Glow */
+.video-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: -25px;
+    background: radial-gradient(circle, rgba(0,150,255,0.7) 0%, transparent 70%);
+    filter: blur(50px);
+    z-index: -1;
+    border-radius: 30px;
+}
+/* ================= SOCIAL COUNTER ================= */
+
+.social-counter {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* BOX */
+.counter-box {
+    background: #ffffff;   /* putih solid */
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
+}
+/* Overlay tambahan biar iframe lebih kontras */
+.counter-box iframe {
+    width: 100%;
+    height: 95px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
+
+    /* Bikin lebih terang */
+    filter: brightness(1.8) contrast(1.6);
+}
+
+/* Overlay hanya untuk area iframe */
+.counter-box::after {
+    content: "";
+    position: absolute;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+    height: 95px;
+    background: rgba(0,0,0,0.6);
+    border-radius: 10px;
+    pointer-events: none;
+}
+
+/* Judul */
+.counter-box h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 12px rgba(0,150,255,0.8);
+}
+
+/* Iframe */
+.counter-box iframe {
+    width: 100%;
+    height: 95px;
+    border-radius: 10px;
+
+    /* Biar angka makin terang */
+    filter: brightness(1.4) contrast(1.3);
+}
+.slide3{
+    background-image: url("200h.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.judulslide3{
+    font-size: 100px;
+    color: azure;
+    text-shadow: 2px 2px 5px black;
+    z-index: 2;
+    position: absolute;
+    top: 20px;
+
+}
+.university-tabs{
+    position: relative;
+    margin-top: 80px;
+
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+
+    z-index: 3;
+}
+
+.uni-card{
+    width: 220px;
+    height: 220px;
+
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+
+    border-radius: 15px;
+    overflow: hidden;
+
+    transition: 0.3s;
+}
+
+.uni-card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.uni-card:hover{
+    transform: translateY(-10px) scale(1.05);
+}
+.slidezhejiang{
+    background-image: url("zhejiangmain.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    min-height: 100vh;
+}
+.judulslide4{
+    font-size: 70px;
+    color: azure;
+    text-shadow: 2px 2px 5px black;
+    z-index: 2;
+    position: absolute;
+    top: 10px;
+    right: 450px;
+}
+.video-wrapper1{
+    position:absolute;
+    top:55%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    width:70%;
+    max-width:900px;
+    aspect-ratio:16/9;
+    z-index:2;
+}
+
+.video-wrapper1 iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    border-radius:20px;
+}
+.slidezhejiang::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+}
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.hero-content {
+  position: relative;
+  color: white;
+  text-align: center;
+  top: 40%;
+  font-size: 2rem;
+}
+.back-btn{
+display:inline-block;
+padding:10px 20px;
+background:#4a63ff;
+color:white;
+text-decoration:none;
+border-radius:8px;
+position: absolute;
+right: 50%;
+top: 10px;
+}
+
+.content{
+display:flex;
+gap:40px;
+align-items:center;
+}
+
+.video-box{
+width:320px;
+aspect-ratio:9/16;
+}
+
+.video-box iframe{
+width:100%;
+height:100%;
+border-radius:12px;
+}
+
+.doc-buttons{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.doc-btn{
+padding:15px 25px;
+background:white;
+border-radius:10px;
+text-decoration:none;
+color:#333;
+font-weight:600;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.doc-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 6px 15px rgba(0,0,0,0.15);
+}
+.slidezhejiang2{
+    background-image: url("Stop-Motion Animation Visual Arts Educational Presentation.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    min-height: 100vh;
+}
