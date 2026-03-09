@@ -7,6 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Pastikan kamu sudah memasukkan GROQ_API_KEY di tab Variables Railway
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 let chatStore = { master: [], public: {} };
 
@@ -74,10 +75,15 @@ app.post('/improve/:userId', async (req, res) => {
     }
 });
 
-// BAGIAN PENTING: Penyesuaian Port untuk Render
+// Endpoint simpel untuk tes apakah server sudah hidup
+app.get('/', (req, res) => {
+    res.send("🚀 GREGORIUS.AI SERVER IS ONLINE!");
+});
+
+// BAGIAN KRUSIAL: Penyesuaian Port dan Host untuk Railway
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log("========================================");
     console.log(`🚀 GREGORIUS.AI SERVER IS RUNNING`);
     console.log(`📍 Port: ${PORT} | Mode: Cloud/Local`);

@@ -2,20 +2,21 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gregorius.AI - Master Voice Fix</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: white; display: flex; justify-content: center; padding: 20px; margin: 0; }
-        #chat-container { width: 100%; max-width: 600px; background: #1e1e1e; border-radius: 15px; display: flex; flex-direction: column; height: 90vh; border: 2px solid #333; transition: all 0.4s ease; }
+        #chat-container { width: 100%; max-width: 600px; background: #1e1e1e; border-radius: 15px; display: flex; flex-direction: column; height: 90vh; border: 2px solid #333; transition: all 0.4s ease; overflow: hidden; }
         #chat-container.master { border-color: #ffd700; box-shadow: 0 0 25px rgba(255, 215, 0, 0.2); }
         #messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; scroll-behavior: smooth; }
         .msg { padding: 12px 18px; border-radius: 12px; max-width: 85%; word-wrap: break-word; line-height: 1.5; font-size: 15px; }
         .user { background: #007bff; align-self: flex-end; color: white; border-bottom-right-radius: 2px; }
         .ai { background: #333; align-self: flex-start; color: #e0e0e0; border-bottom-left-radius: 2px; }
-        #input-area { padding: 15px; background: #252525; display: flex; gap: 10px; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; }
+        #input-area { padding: 15px; background: #252525; display: flex; gap: 10px; }
         input { flex: 1; padding: 12px; border-radius: 8px; border: none; background: #333; color: white; outline: none; font-size: 14px; }
         button { padding: 10px 18px; border-radius: 8px; border: none; cursor: pointer; background: #28a745; color: white; font-weight: bold; transition: 0.2s; }
         button:hover { background: #218838; }
-        #mic-btn { background: #dc3545; }
+        #mic-btn { background: #dc3545; font-size: 18px; }
         #mic-btn.active { background: #ff4757; animation: pulse 1s infinite; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
     </style>
@@ -36,6 +37,7 @@
     const messagesDiv = document.getElementById('messages');
     const container = document.getElementById('chat-container');
     const userInput = document.getElementById('userInput');
+    const micBtn = document.getElementById('mic-btn');
 
     // 1. SPEECH RECOGNITION (LISTENING)
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -43,29 +45,28 @@
         const recognition = new SpeechRecognition();
         recognition.lang = 'id-ID';
 
-        document.getElementById('mic-btn').onclick = () => {
+        micBtn.onclick = () => {
             recognition.start();
-            document.getElementById('mic-btn').classList.add('active');
+            micBtn.classList.add('active');
         };
 
         recognition.onresult = (event) => {
             userInput.value = event.results[0][0].transcript;
             sendMessage();
-            document.getElementById('mic-btn').classList.remove('active');
+            micBtn.classList.remove('active');
         };
 
-        recognition.onend = () => document.getElementById('mic-btn').classList.remove('active');
+        recognition.onend = () => micBtn.classList.remove('active');
     }
 
     // 2. SPEECH SYNTHESIS (SPEAKING)
     function speak(text) {
         if (!isMasterActive) return;
-        window.speechSynthesis.cancel(); // Reset suara biar ga tumpang tindih
+        window.speechSynthesis.cancel();
         const synth = window.speechSynthesis;
         const utterThis = new SpeechSynthesisUtterance(text);
         
         const voices = synth.getVoices();
-        // Cari suara Indo (biasanya Google Bahasa Indonesia)
         const indoVoice = voices.find(v => v.lang.includes('id-ID'));
         if (indoVoice) utterThis.voice = indoVoice;
         
@@ -83,19 +84,19 @@
         userInput.value = '';
 
         try {
-            const res = await fetch("gregoriusptlnchina-production.up.railway.app", {
+            // URL Railway kamu yang sudah diperbaiki jalurnya
+            const res = await fetch("https://gregoriusptlnchina-production.up.railway.app/improve/user_greg", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ text: text, isMasterMode: isMasterActive })
             });
             const data = await res.json();
 
-            // Handle Logout
+            // Logika ganti mode (Master/Publik)
             if (data.logout) {
                 isMasterActive = false;
                 container.classList.remove('master');
             } 
-            // Handle Login Master
             else if (data.isMaster && !isMasterActive) {
                 isMasterActive = true;
                 container.classList.add('master');
@@ -104,7 +105,8 @@
             appendMessage('ai', data.reply);
             if (isMasterActive) speak(data.reply);
         } catch (e) { 
-            appendMessage('ai', 'Maaf, gagal terhubung ke server Gregorius.AI.'); 
+            console.error("Error connecting to server:", e);
+            appendMessage('ai', 'Maaf Greg, gagal terhubung ke server Gregorius.AI.'); 
         }
     }
 
@@ -117,8 +119,6 @@
     }
 
     userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-    
-    // Trigger getVoices load (beberapa browser butuh ini)
     window.speechSynthesis.getVoices();
 </script>
 </body>
