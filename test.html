@@ -3,119 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gregorius.AI - Senior Consultant</title>
+    <title>GREGORIUS.AI | THE GOD PROTOCOL</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
     <style>
-        :root { --primary: #1a73e8; --bg: #f8f9fa; --user-msg: #d2e3fc; --ai-msg: #ffffff; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg); display: flex; flex-direction: column; height: 100vh; }
-        
-        /* Header */
-        .header { background: var(--primary); color: white; padding: 15px 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .header h1 { margin: 0; font-size: 1.2rem; }
-        .header p { margin: 5px 0 0; font-size: 0.8rem; opacity: 0.9; }
+        :root {
+            --bg-deep: #020408;
+            --panel-hex: #0a0f16;
+            --neon-blue: #00d2ff;
+            --neon-green: #00ff88;
+            --neon-red: #ff0055;
+            --text-primary: #e2e8f0;
+            --text-dim: #64748b;
+            --glass: rgba(10, 15, 22, 0.9);
+        }
 
-        /* Chat Area */
-        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .message { max-width: 80%; padding: 12px 16px; border-radius: 15px; line-height: 1.5; font-size: 0.95rem; word-wrap: break-word; position: relative; }
-        .user { align-self: flex-end; background-color: var(--user-msg); color: #174ea6; border-bottom-right-radius: 2px; }
-        .ai { align-self: flex-start; background-color: var(--ai-msg); color: #3c4043; border-bottom-left-radius: 2px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        
-        /* Loading Animation */
-        .typing { font-style: italic; font-size: 0.8rem; color: #70757a; display: none; margin-bottom: 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        /* Input Area */
-        .input-area { background: white; padding: 15px; border-top: 1px solid #dadce0; display: flex; gap: 10px; align-items: center; }
-        input { flex: 1; padding: 12px; border: 1px solid #dadce0; border-radius: 24px; outline: none; font-size: 1rem; }
-        input:focus { border-color: var(--primary); }
-        button { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 24px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #1557b0; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Matrix Rain Canvas */
+        #matrix-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.15; pointer-events: none;
+            display: none; /* Hanya aktif di Master Mode */
+        }
+        .master-active #matrix-canvas { display: block; }
+
+        /* Dynamic Background Overlay */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.03) 0%, transparent 100%);
+            z-index: -1;
+        }
+
+        /* Header UI: Cyberpunk Style */
+        .cyber-header {
+            background: var(--glass);
+            backdrop-filter: blur(30px);
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(0, 210, 255, 0.2);
+            box-shadow: 0 4px 50px rgba(0,0,0,0.8);
+            z-index: 100;
+        }
+
+        .system-id { display: flex; align-items: center; gap: 20px; }
+        .hex-logo {
+            width: 55px; height: 55px;
+            background: var(--bg-deep);
+            border: 2px solid var(--neon-blue);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+        }
+
+        .master-active .hex-logo {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        .title-group h1 { font-size: 1.5rem; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; color: #fff; }
+        .title-group span { font-size: 0.75rem; color: var(--neon-blue); font-family: 'Fira Code', monospace; }
+
+        .status-display { display: flex; gap: 20px; }
+        .stat-node {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 20px; border-radius: 8px;
+            font-size: 0.8rem; font-family: 'Fira Code', monospace;
+        }
+        .master-active #auth-stat { border-color: var(--neon-green); color: var(--neon-green); }
+
+        /* Main Workspace */
+        #main-chat-area {
+            flex: 1; overflow-y: auto;
+            padding: 3rem 20%;
+            display: flex; flex-direction: column; gap: 35px;
+            scroll-behavior: smooth;
+        }
+
+        .msg-frame { width: 100%; display: flex; flex-direction: column; animation: slide-in 0.5s ease forwards; }
+        @keyframes slide-in { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+
+        .bubble {
+            max-width: 85%; padding: 22px 28px; border-radius: 12px;
+            line-height: 1.8; font-size: 1.05rem; position: relative;
+            background: rgba(15, 20, 28, 0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .user-frame { align-self: flex-end; }
+        .user-frame .bubble {
+            background: linear-gradient(135deg, #0051ff, #003199);
+            color: white; border: none; box-shadow: 0 10px 30px rgba(0, 81, 255, 0.2);
+        }
+
+        .ai-frame .bubble { border-left: 4px solid var(--neon-blue); }
+        .master-active .ai-frame .bubble { border-left-color: var(--neon-green); }
+
+        /* Markdown & Code Highlighting */
+        .bubble pre { margin: 15px 0; border-radius: 8px; overflow: hidden; font-family: 'Fira Code', monospace; font-size: 0.9rem; }
+        .bubble code { padding: 3px 6px; border-radius: 4px; background: rgba(0,0,0,0.4); color: #ffcc00; }
+
+        /* HUD Actions */
+        .hud-actions {
+            display: flex; gap: 20px; margin-top: 12px; padding-left: 10px;
+            opacity: 0; transition: 0.3s;
+        }
+        .msg-frame:hover .hud-actions { opacity: 1; }
+        .hud-btn {
+            background: none; border: none; color: var(--text-dim);
+            cursor: pointer; font-size: 0.7rem; font-family: 'Fira Code', monospace;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .hud-btn:hover { color: var(--neon-blue); }
+
+        /* Terminal Input Area */
+        .terminal-deck {
+            padding: 2.5rem 20%;
+            background: linear-gradient(to top, var(--bg-deep), transparent);
+        }
+
+        .console-box {
+            background: rgba(10, 15, 22, 0.95);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 15px; padding: 12px 20px;
+            display: flex; align-items: center; gap: 20px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+        }
+        .console-box:focus-within { border-color: var(--neon-blue); box-shadow: 0 0 30px rgba(0, 210, 255, 0.1); }
+
+        input {
+            flex: 1; background: transparent; border: none;
+            color: white; font-family: 'Fira Code', monospace;
+            font-size: 1.1rem; outline: none;
+        }
+
+        .exec-trigger {
+            width: 55px; height: 55px; border-radius: 12px;
+            background: var(--neon-blue); border: none; color: #000;
+            font-weight: 900; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .master-active .exec-trigger { background: var(--neon-green); }
+
+        /* System Logs Overlay */
+        .sys-logs {
+            position: fixed; bottom: 10px; right: 20px;
+            font-family: 'Fira Code', monospace; font-size: 0.65rem;
+            color: var(--text-dim); text-align: right; pointer-events: none;
+        }
+
+        @media (max-width: 1024px) { #main-chat-area, .terminal-deck { padding-left: 5%; padding-right: 5%; } }
     </style>
 </head>
-<body>
+<body id="core-system">
 
-<div class="header">
-    <h1>Gregorius.AI</h1>
-    <p id="status-text">Mode: Konsultan Publik</p>
+<canvas id="matrix-canvas"></canvas>
+<div class="overlay"></div>
+
+<header class="cyber-header">
+    <div class="system-id">
+        <div class="hex-logo"><i class="fas fa-shield-virus"></i></div>
+        <div class="title-group">
+            <h1>GREGORIUS.AI</h1>
+            <span>VERSION: 4.0.0_STABLE // MASTER_GREG</span>
+        </div>
+    </div>
+    <div class="status-display">
+        <div class="stat-node"><i class="fas fa-microchip"></i> LATENCY: <span id="ping">24ms</span></div>
+        <div class="stat-node" id="auth-stat"><i class="fas fa-user-lock"></i> AUTH: PUBLIC</div>
+    </div>
+</header>
+
+<main id="main-chat-area">
+    <div class="msg-frame ai-frame">
+        <div class="bubble">
+            <span style="color:var(--neon-blue)">[SYSTEM_BOOT_COMPLETE]</span><br><br>
+            Halo, saya adalah **Gregorius.AI**. Asisten cerdas yang didesain khusus untuk membantu Anda menavigasi perjalanan akademis ke Tiongkok. <br><br>
+            Keahlian utama saya meliputi konsultasi beasiswa, penyusunan **Personal Statement** dan **Study Plan** profesional, serta analisis sistem pendidikan di China. <br><br>
+            <em>Bagaimana rencana studi Anda hari ini?</em>
+        </div>
+    </div>
+</main>
+
+<div id="processing-overlay" style="display:none; padding-left: 20%; color: var(--neon-blue); font-family: 'Fira Code', monospace; font-size: 0.8rem; margin-bottom: 20px;">
+    <i class="fas fa-sync fa-spin"></i> SYNCHRONIZING_NEURAL_LAYERS...
 </div>
 
-<div id="chat-container">
-    <div class="message ai">Halo! Saya Gregorius.AI. Ada yang bisa saya bantu mengenai rencana studi atau beasiswa kamu ke China?</div>
-</div>
+<footer class="terminal-deck">
+    <div class="console-box">
+        <input type="text" id="userInput" placeholder="EXECUTING_COMMAND..." autofocus>
+        <button class="exec-trigger" onclick="runCommand()">RUN</button>
+    </div>
+</footer>
 
-<div id="typing-indicator" class="typing" style="padding-left: 20px;">Gregorius.AI sedang berpikir...</div>
-
-<div class="input-area">
-    <input type="text" id="userInput" placeholder="Ketik pesan di sini..." autocomplete="off">
-    <button onclick="sendMessage()">Kirim</button>
+<div class="sys-logs">
+    NODE_ENV: PRODUCTION<br>
+    UPTIME: <span id="uptime">0s</span><br>
+    RAILWAY_STATUS: CONNECTED
 </div>
 
 <script>
-    let isMasterMode = false;
-    const chatContainer = document.getElementById('chat-container');
+    let isMaster = false;
+    const STORAGE_KEY = 'greg_ai_master_log';
+    const chatArea = document.getElementById('main-chat-area');
     const userInput = document.getElementById('userInput');
-    const typingIndicator = document.getElementById('typing-indicator');
-    const statusText = document.getElementById('status-text');
+    const authStat = document.getElementById('auth-stat');
+    const coreBody = document.getElementById('core-system');
 
-    // Fungsi Kirim Pesan
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        if (!text) return;
+    marked.setOptions({
+        highlight: function(code, lang) { return hljs.highlightAuto(code).value; },
+        breaks: true
+    });
 
-        // 1. Tampilkan pesan user
-        appendMessage('user', text);
-        userInput.value = '';
-        typingIndicator.style.display = 'block';
-        scrollToBottom();
+    // --- MATRIX RAIN ---
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&*";
+    const drops = Array(Math.floor(canvas.width/20)).fill(1);
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00ff88"; ctx.font = "15px monospace";
+        drops.forEach((y, i) => {
+            const text = chars[Math.floor(Math.random()*chars.length)];
+            ctx.fillText(text, i*20, y*20);
+            if (y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++;
+        });
+    }
+    setInterval(drawMatrix, 50);
 
-        try {
-            // 2. Hit ke API Railway
-            const response = await fetch("https://gregoriusptlnchina-production.up.railway.app/improve/user_greg", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    text: text, 
-                    isMasterMode: isMasterMode 
-                })
-            });
+    // --- TTS ---
+    function tts(text) {
+        window.speechSynthesis.cancel();
+        const synth = new SpeechSynthesisUtterance(text.replace(/[#*`]/g, ''));
+        synth.lang = 'id-ID';
+        window.speechSynthesis.speak(synth);
+    }
 
-            const data = await response.json();
+    // --- HISTORY STORAGE ---
+    function saveLog(role, text) {
+        if (!isMaster) return;
+        let logs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        logs.push({role, text});
+        if (logs.length > 50) logs.shift();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
+    }
 
-            // 3. Logika Update Mode (Master/Public)
-            if (data.isMaster !== undefined) {
-                isMasterMode = data.isMaster;
-                statusText.innerText = isMasterMode ? "Mode: Akses Master Aktif 😎" : "Mode: Konsultan Publik";
-                statusText.style.color = isMasterMode ? "#ccff00" : "white";
-            }
-            
-            if (data.logout) isMasterMode = false;
-
-            // 4. Tampilkan balasan AI
-            appendMessage('ai', data.reply);
-
-        } catch (error) {
-            appendMessage('ai', "Error: Gagal terhubung ke server. Pastikan Railway kamu berstatus 'Active'.");
-            console.error(error);
-        } finally {
-            typingIndicator.style.display = 'none';
-            scrollToBottom();
+    function loadLog() {
+        const logs = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        if (logs.length > 0) {
+            chatArea.innerHTML = ''; 
+            logs.forEach(log => appendMsg(log.role, log.text, true));
         }
     }
 
-    function appendMessage(sender, text) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `message ${sender}`;
-        msgDiv.innerText = text;
-        chatContainer.appendChild(msgDiv);
+    // --- CORE LOGIC ---
+    async function runCommand() {
+        const cmd = userInput.value.trim();
+        if (!cmd) return;
+
+        appendMsg('user', cmd);
+        userInput.value = '';
+        document.getElementById('processing-overlay').style.display = 'block';
+
+        try {
+            const response = await fetch("https://gregoriusptlnchina-production.up.railway.app/improve/user_greg", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: cmd, isMasterMode: isMaster })
+            });
+            const data = await response.json();
+
+            if (data.isMaster !== undefined) {
+                const oldStatus = isMaster;
+                isMaster = data.isMaster;
+                if(isMaster) {
+                    coreBody.classList.add('master-active');
+                    authStat.innerHTML = '<i class="fas fa-unlock"></i> AUTH: MASTER_GRANTED';
+                    if (!oldStatus) {
+                        tts("Otorisasi Master diterima.");
+                        loadLog();
+                    }
+                } else {
+                    coreBody.classList.remove('master-active');
+                    authStat.innerHTML = '<i class="fas fa-user-lock"></i> AUTH: PUBLIC';
+                }
+            }
+
+            if (data.logout) {
+                isMaster = false;
+                coreBody.classList.remove('master-active');
+                authStat.innerHTML = '<i class="fas fa-user-lock"></i> AUTH: PUBLIC';
+            }
+
+            appendMsg('ai', data.reply);
+            if (isMaster) tts(data.reply);
+
+        } catch (e) {
+            appendMsg('ai', "CRITICAL_SYSTEM_ERROR: FAIL_TO_CONNECT.");
+        } finally {
+            document.getElementById('processing-overlay').style.display = 'none';
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
     }
 
-    function scrollToBottom() {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+    function appendMsg(role, text, isHistory = false) {
+        const frame = document.createElement('div');
+        frame.className = `msg-frame ${role}-frame`;
+        const content = role === 'ai' ? marked.parse(text) : text;
+        
+        frame.innerHTML = `
+            <div class="bubble">${content}</div>
+            ${role === 'ai' ? `
+                <div class="hud-actions">
+                    <span class="hud-btn" onclick="navigator.clipboard.writeText(\`${text.replace(/`/g, '\\`')}\`)"><i class="fas fa-clone"></i> COPY_RAW</span>
+                    <span class="hud-btn" onclick="tts(\`${text.replace(/`/g, '\\`')}\`)"><i class="fas fa-volume-up"></i> REPLAY_VOICE</span>
+                </div>
+            ` : ''}
+        `;
+        chatArea.appendChild(frame);
+        chatArea.scrollTop = chatArea.scrollHeight;
+        if (!isHistory) saveLog(role, text);
     }
 
-    // Fitur Tekan Enter untuk Kirim
-    userInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") sendMessage();
-    });
+    // UTILS
+    setInterval(() => {
+        document.getElementById('ping').innerText = Math.floor(Math.random() * 25 + 15) + 'ms';
+    }, 3000);
+
+    let sec = 0;
+    setInterval(() => {
+        sec++;
+        document.getElementById('uptime').innerText = sec + 's';
+    }, 1000);
+
+    userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") runCommand(); });
 </script>
-
 </body>
 </html>
