@@ -1,8 +1,12 @@
 {
   "name": "website-china",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000G\u0000r\u0000e\u0000g\u0000o\u0000r\u0000i\u0000u\u0000s\u0000P\u0000T\u0000L\u0000N\u0000C\u0000h\u0000i\u0000n\u0000a\u0000\r\u0000 \u0000",
-  "main": "index.js",
+  "description": "Gregorius PTLN China AI Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "accepts": "^2.0.0",
@@ -81,22 +85,3 @@
     "type-is": "^2.0.1",
     "unpipe": "^1.0.0",
     "vary": "^1.1.2",
-    "web-streams-polyfill": "^3.3.3",
-    "wrappy": "^1.0.2"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gregoriuscris26-blip/GregoriusPTLNChina.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/gregoriuscris26-blip/GregoriusPTLNChina/issues"
-  },
-  "homepage": "https://github.com/gregoriuscris26-blip/GregoriusPTLNChina#readme"
-}

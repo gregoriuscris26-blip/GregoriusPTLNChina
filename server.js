@@ -74,9 +74,12 @@ app.post('/improve/:userId', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
+// BAGIAN PENTING: Penyesuaian Port untuk Render
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
     console.log("========================================");
-    console.log("🚀 GREGORIUS.AI SERVER IS RUNNING");
-    console.log("📍 Port: 3000 | Mode: Browser Speech");
+    console.log(`🚀 GREGORIUS.AI SERVER IS RUNNING`);
+    console.log(`📍 Port: ${PORT} | Mode: Cloud/Local`);
     console.log("========================================");
 });
