@@ -1,18 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GregoriusOtwPTLNChina</title>
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* CSS Tambahan biar tampilan rapi & Adaptive */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Perbaikan untuk HP (Layar di bawah 768px) */
+        @media (max-width: 768px) {
+            /* 1. Mencegah konten nabrak Poni/Notch */
+            body {
+                padding-top: env(safe-area-inset-top, 20px);
+                padding-bottom: env(safe-area-inset-bottom, 20px);
+            }
+
+            .judul { 
+                font-size: 1.8rem !important; 
+                text-align: center; 
+                margin-top: 40px !important; 
+                width: 100%;
+            }
+
+            .judulslide3 { font-size: 1.6rem !important; text-align: center; }
+            
+            /* 2. Lanyard: Berubah dari melayang jadi berbaris rapi */
+            .lanyard {
+                position: relative !important;
+                width: 85% !important;
+                margin: 15px auto !important;
+                left: 0 !important;
+                right: 0 !important;
+                transform: none !important;
+                display: block !important;
+            }
+
+            .card {
+                margin: 0 auto;
+                width: 100% !important;
+            }
+
+            /* Mencegah gambar Lanyard segede gaban */
+            .card img {
+                width: 100% !important;
+                max-width: 200px; /* Batasin biar gak menuhin layar */
+                height: auto;
+            }
+            
+            /* 3. Social Counter: Jadi atas-bawah */
+            .social-counter {
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 20px !important;
+                padding: 0 10px !important;
+            }
+            
+            .counter-box {
+                width: 100% !important;
+                max-width: 350px;
+            }
+
+            /* 4. Video & YouTube: Responsive */
+            .video-wrapper iframe {
+                width: 95vw !important;
+                height: 54vw !important; 
+            }
+
+            /* 5. University Tabs */
+            .university-tabs {
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                gap: 15px !important;
+                display: flex;
+            }
+            
+            .uni-card {
+                width: 40% !important;
+                min-width: 120px;
+            }
+
+            .uni-card img {
+                width: 100%;
+                height: auto;
+            }
+            
+            /* 6. Slide Adaptive */
+            .slide {
+                padding: 40px 15px !important;
+                height: auto !important;
+                min-height: 100vh !important;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                box-sizing: border-box;
+            }
+
+            .social {
+                justify-content: center !important;
+                margin-bottom: 20px !important;
+                display: flex;
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -20,30 +125,24 @@
     <h1 class="judul">Help You Go To China</h1>
     <p class="under">Free Website by @GregoriusChen</p>
 
-    <!-- SOCIAL MEDIA -->
-<div class="social">
+    <div class="social">
         <a href="test.html" title="Tanya Gregorius.AI">
             <i class="fas fa-robot" style="color: #ffd700;"></i>
         </a>
-
         <a href="https://www.instagram.com/greyyygoo/" target="_blank">
             <i class="fab fa-instagram"></i>
         </a>
-
         <a href="https://www.tiktok.com/@gregorius.chen" target="_blank">
             <i class="fab fa-tiktok"></i>
         </a>
-
         <a href="mailto:gregoriuscris26@gmail.com">
             <i class="fas fa-envelope"></i>
         </a>
-
         <a href="https://wa.me/6281210558916" target="_blank">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
 
-    <!-- LANYARD KANAN -->
     <div class="lanyard kanan">
         <div class="card">
             <img src="download.png" alt="Foto">
@@ -52,7 +151,6 @@
         </div>
     </div>
 
-    <!-- LANYARD KIRI -->
     <div class="lanyard kiri">
         <div class="card">
             <img src="Tsinghua university_.png" alt="Foto2">
@@ -61,14 +159,12 @@
         </div>
     </div>
 </section>
-<section class="slide slide2">
 
-    <!-- BACKGROUND VIDEO -->
+<section class="slide slide2">
     <video autoplay muted loop playsinline class="bg-video">
         <source src="lv_0_20260303171554.mp4" type="video/mp4">
     </video>
 
-    <!-- VIDEO TENGAH -->
     <div class="video-wrapper">
     <iframe 
         src="https://www.youtube.com/embed/pQD2ygbOyZ4?autoplay=1&mute=1&rel=0"
@@ -77,45 +173,40 @@
         allowfullscreen>
     </iframe>
     </div>
+    
     <div class="social-counter">
-    <div class="counter-box">
-        <h3>TikTok Followers</h3>
-        <iframe src="https://livecounts.io/embed/tiktok-live-follower-counter/@gregorius.chen?theme=light"></iframe>
+        <div class="counter-box">
+            <h3>TikTok Followers</h3>
+            <iframe src="https://livecounts.io/embed/tiktok-live-follower-counter/@gregorius.chen?theme=light"></iframe>
+        </div>
+        <div class="counter-box">
+            <h3>YouTube Subscribers</h3>
+            <iframe src="https://livecounts.io/embed/youtube-live-subscriber-counter/UCzGtSGKY7WxJxF1XafKodVA?theme=light"></iframe>
+        </div>
     </div>
-
-    <div class="counter-box">
-        <h3>YouTube Subscribers</h3>
-        <iframe src="https://livecounts.io/embed/youtube-live-subscriber-counter/UCzGtSGKY7WxJxF1XafKodVA?theme=light"></iframe>
-    </div>
-
-</div>
 </section>
+
 <section class="slide slide3">
- <h1 class="judulslide3">Choose Your University</h1>
- <div class="university-tabs">
-
-    <a href="tsinghua.html" class="uni-card">
-        <img src="tsinghua.jfif" alt="Tsinghua University">
-    </a>
-
-    <a href="zhejiang.html" class="uni-card">
-        <img src="zhejiang.jfif" alt="Zhejiang University">
-    </a>
-
-    <a href="peking.html" class="uni-card">
-        <img src="peking.jfif" alt="Peking University">
-    </a>
-
-</div>
+    <h1 class="judulslide3">Choose Your University</h1>
+    <div class="university-tabs">
+        <a href="tsinghua.html" class="uni-card">
+            <img src="tsinghua.jfif" alt="Tsinghua University">
+        </a>
+        <a href="zhejiang.html" class="uni-card">
+            <img src="zhejiang.jfif" alt="Zhejiang University">
+        </a>
+        <a href="peking.html" class="uni-card">
+            <img src="peking.jfif" alt="Peking University">
+        </a>
+    </div>
 </section>
+
 <section class="slide">
-          <video autoplay muted loop playsinline class="bg-video">
-    <source src="Red White Bold China Presentation.mp4" type="video/mp4">
-  </video>
-    <div class="hero-content">
-  </div>
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="Red White Bold China Presentation.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content"></div>
 </section>
 
-</section>
 </body>
 </html>
