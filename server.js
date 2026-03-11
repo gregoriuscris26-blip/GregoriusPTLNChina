@@ -1,4 +1,6 @@
 require('dotenv').config();
+// Taruh di bagian atas setelah deklarasi app
+let globalMasterMemory = [];
 const express = require('express');
 const cors = require('cors');
 const Groq = require('groq-sdk');
@@ -22,67 +24,63 @@ app.get('/', (req, res) => {
     res.send("🚀 GREGORIUS.AI SERVER IS ONLINE!");
 });
 
-app.post('/improve/:userId', async (req, res) => {
-    const { userId } = req.params;
-    const { text, isMasterMode } = req.body;
-    const masterCode = "GREGMANMAN";
-    const logoutCode = "GREGKELUAR";
+app.post("/improve/user_greg", async (req, res) => {
+    // Kita bersihkan teks dari spasi di depan/belakang
+    const rawText = req.body.text || "";
+    const text = rawText.trim();
+    const isMasterMode = req.body.isMasterMode === true || req.body.isMasterMode === "true";
 
-    if (!text) return res.status(400).json({ reply: "Teks tidak boleh kosong." });
+    // DEBUG: Cek di log Railway apakah isMasterMode benar masuk sebagai true
+    console.log(`Pesan masuk: "${text}" | MasterMode: ${isMasterMode}`);
 
-    if (text.toUpperCase() === logoutCode) {
-        chatStore.master = []; 
-        return res.json({ 
-            reply: "Sesi Master diakhiri. Saya kembali menjadi Konsultan Publik.", 
-            isMaster: false, 
-            logout: true 
-        });
+    // 1. LOGIKA BELAJAR (KHUSUS MASTER)
+    // Sekarang lebih fleksibel: GM: atau gm: atau Gm: semua masuk
+    if (isMasterMode && text.toUpperCase().startsWith("GM:")) {
+        const ajaranBaru = text.substring(3).trim(); 
+        if (ajaranBaru) {
+            globalMasterMemory.push(ajaranBaru);
+            console.log("MEMORI DIUPDATE:", globalMasterMemory);
+            return res.json({ 
+                reply: `[SISTEM MASTER] Instruksi "${ajaranBaru}" telah diterima dan dikunci ke Koreksi Global.`,
+                isMaster: true 
+            });
+        }
     }
 
-    if (text.toUpperCase() === masterCode) {
-        chatStore.master = [{ 
-            role: "system", 
-            content: "Nama kamu Gregorius.AI. Asisten pribadi Greg. Akrab, hangat, panggil 'Greg'. Fokus ke AI/CS dan Fisika." 
-        }];
-        return res.json({ 
-            reply: "Akses Master diterima. Halo Greg! Apa agenda kita hari ini?", 
-            isMaster: true 
-        });
+    // 2. FITUR LIHAT MEMORI
+    if (isMasterMode && text.toUpperCase() === "GML//ALL") {
+        const daftar = globalMasterMemory.length > 0 
+            ? globalMasterMemory.map((a, i) => `${i+1}. ${a}`).join("\n")
+            : "Memori masih kosong, Master.";
+        return res.json({ reply: `[DATABASE MASTER]\n${daftar}`, isMaster: true });
     }
 
+    // 3. PROSES KE GROQ AI
     try {
-        let history;
-        if (isMasterMode) {
-            history = chatStore.master;
-        } else {
-            if (!chatStore.public[userId]) {
-                chatStore.public[userId] = [{ 
-                    role: "system", 
-                    content: "Kamu Gregorius.AI, Konsultan Senior Pendidikan China. Profesional dan ringkas." 
-                }];
-            }
-            history = chatStore.public[userId];
+        let currentSystemPrompt = "Kamu adalah Gregory.AI, asisten konsultasi beasiswa China.";
+        
+        // Suntikkan memori global ke prompt
+        if (globalMasterMemory.length > 0) {
+            currentSystemPrompt += "\n\nATURAN MUTLAK MASTER:\n" + globalMasterMemory.join("\n");
         }
 
-        history.push({ role: "user", content: text });
-        if (history.length > 15) history.splice(1, 2);
-
-        const chat = await groq.chat.completions.create({
-            messages: history,
-            model: "llama-3.3-70b-versatile",
-            temperature: isMasterMode ? 0.8 : 0.4,
+        const completion = await groq.chat.completions.create({
+            messages: [
+                { role: "system", content: currentSystemPrompt },
+                { role: "user", content: text }
+            ],
+            model: "llama3-8b-8192",
         });
 
-        const reply = chat.choices[0]?.message?.content || "Maaf, saya tidak bisa merespons.";
-        history.push({ role: "assistant", content: reply });
-
-        res.json({ reply: reply, isMaster: isMasterMode });
-    } catch (err) {
-        console.error("Groq Error:", err.message);
-        res.status(500).json({ reply: "Server AI sedang lelah, coba lagi nanti." });
+        res.json({ 
+            reply: completion.choices[0]?.message?.content || "Blank...",
+            isMaster: isMasterMode 
+        });
+    } catch (error) {
+        console.error("ERROR:", error);
+        res.status(500).json({ reply: "Server Error" });
     }
 });
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 SERVER RUNNING ON PORT ${PORT}`);
