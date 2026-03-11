@@ -52,7 +52,7 @@ app.post("/improve/user_greg", async (req, res) => {
 
     // 3. PROSES KE GROQ AI (MODEL TERBARU)
     try {
-        let currentSystemPrompt = "Kamu adalah Gregory.AI, asisten konsultasi beasiswa China.";
+        let currentSystemPrompt = "Kamu adalah Gregorius.AI, asisten konsultasi beasiswa China.";
         if (globalMasterMemory.length > 0) {
             currentSystemPrompt += "\n\nATURAN MUTLAK MASTER:\n" + globalMasterMemory.join("\n");
         }
@@ -72,7 +72,7 @@ app.post("/improve/user_greg", async (req, res) => {
         });
     } catch (error) {
         console.error("GROQ_ERROR:", error.message);
-        res.status(500).json({ reply: "Terjadi kesalahan pada model AI. Hubungi Master." });
+        res.status(500).json({ reply: "Terjadi kesalahan pada model AI." });
     }
 });
 

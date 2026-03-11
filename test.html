@@ -54,6 +54,7 @@
             border-bottom: 2px solid var(--imperial-gold);
             box-shadow: 0 0 30px rgba(255, 179, 0, 0.2);
             z-index: 100;
+            transition: all 0.5s ease;
         }
 
         .system-id { display: flex; align-items: center; gap: 15px; }
@@ -88,7 +89,7 @@
         .auth-pill {
             font-size: 0.65rem; color: white; background: var(--dynasty-red);
             border: 1px solid var(--imperial-gold); padding: 6px 15px; border-radius: 4px;
-            font-weight: bold;
+            font-weight: bold; transition: all 0.3s ease;
         }
 
         #main-chat-area {
@@ -118,10 +119,7 @@
             width: fit-content; border: 1px solid var(--imperial-gold);
         }
 
-        .hud-actions { display: none; gap: 15px; margin-top: 10px; padding-left: 10px; }
-        /* Tampilkan hud-actions kalau Master atau AI sedang bicara */
-        .master-active .hud-actions, .ai-frame .hud-actions { display: flex; }
-
+        .hud-actions { display: flex; gap: 15px; margin-top: 10px; padding-left: 10px; }
         .hud-btn { background: none; border: none; color: var(--imperial-gold); font-size: 0.65rem; cursor: pointer; opacity: 0.7; }
 
         .terminal-deck { padding: 2rem 1.5rem; background: linear-gradient(0deg, var(--ink-black) 50%, transparent); }
@@ -136,9 +134,11 @@
             border-radius: 8px; border: none; cursor: pointer; font-size: 1.2rem;
         }
 
-        .master-active .cyber-header { border-bottom-color: var(--jade-green); }
-        .master-active .hex-logo { border-color: var(--jade-green); color: var(--jade-green); }
-        .master-active .auth-pill { background: var(--jade-green); color: var(--ink-black); }
+        /* MASTER MODE OVERRIDES */
+        .master-active .cyber-header { border-bottom-color: var(--jade-green); box-shadow: 0 0 30px rgba(0, 255, 149, 0.2); }
+        .master-active .hex-logo { border-color: var(--jade-green); color: var(--jade-green); text-shadow: 0 0 10px var(--jade-green); }
+        .master-active .auth-pill { background: var(--jade-green); color: var(--ink-black); border-color: white; }
+        .master-active .stat-value { color: var(--jade-green); text-shadow: 0 0 5px var(--jade-green); }
 
         @media (max-width: 768px) {
             .mobile-hide { display: none; }
@@ -212,9 +212,8 @@
     const authStat = document.getElementById('auth-stat');
     const micBtn = document.getElementById('mic-btn');
 
-    // --- TTS FUNCTION ---
+    // --- 1. TTS FUNCTION ---
     function tts(text) {
-        // Suara hanya aktif otomatis di Master Mode, tapi tombol manual tetap bisa dipakai
         window.speechSynthesis.cancel();
         const synth = new SpeechSynthesisUtterance(text.replace(/[#*`]/g, ''));
         synth.lang = 'id-ID';
@@ -222,13 +221,12 @@
         window.speechSynthesis.speak(synth);
     }
 
-    // --- SPEECH RECOGNITION (REKAM SUARA) ---
+    // --- 2. MIC FUNCTION ---
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
         const recognition = new SpeechRecognition();
         recognition.lang = 'id-ID';
-        recognition.interimResults = false;
-
+        
         micBtn.addEventListener('click', () => {
             recognition.start();
             micBtn.style.color = 'var(--jade-green)';
@@ -239,51 +237,41 @@
             userInput.value = event.results[0][0].transcript;
             micBtn.style.color = 'var(--imperial-gold)';
             micBtn.classList.remove('fa-beat');
+            runCommand();
         };
-        
+
         recognition.onerror = () => {
             micBtn.style.color = 'var(--imperial-gold)';
             micBtn.classList.remove('fa-beat');
         };
     }
 
-    // --- UI HELPERS ---
-    function updateClock() {
-        const bjTime = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit', hour12: false
-        }).format(new Date());
-        document.getElementById('bj-time').innerText = bjTime;
-    }
-    setInterval(updateClock, 1000); updateClock();
-
-    setInterval(() => {
-        let val = (98.0 + Math.random() * 0.9).toFixed(1);
-        document.getElementById('prob-val').innerText = val + "%";
-    }, 4000);
-
-    // Matrix Rain
-    const canvas = document.getElementById('matrix-canvas');
-    const ctx = canvas.getContext('2d');
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.onresize = resize; resize();
-    const chars = "龙学智慧北京上海诚实德福10";
-    const drops = Array(Math.floor(canvas.width/20)).fill(1);
-    function draw() {
-        ctx.fillStyle = "rgba(5, 5, 5, 0.15)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = isMaster ? "#00ff95" : "#8b0000";
-        ctx.font = "15px 'Ma Shan Zheng'";
-        drops.forEach((y, i) => {
-            const txt = chars[Math.floor(Math.random()*chars.length)];
-            ctx.fillText(txt, i*20, y*20);
-            if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0; drops[i]++;
-        });
-    }
-    setInterval(draw, 70);
-
-    // --- CORE LOGIC ---
+    // --- 3. CORE LOGIC ---
     async function runCommand() {
         const cmd = userInput.value.trim();
         if (!cmd) return;
+
+        // Login Check
+        if (cmd === "gregmanman") {
+            isMaster = true;
+            document.body.classList.add('master-active');
+            authStat.innerHTML = "IMPERIAL_MASTER";
+            appendMsg('ai', "🛡️ **AKSES MASTER DITERIMA.** Selamat datang, Lord Gregorius.");
+            tts("Akses Master diterima");
+            userInput.value = '';
+            return;
+        }
+
+        // Exit Check
+        if (cmd === "gregkeluar") {
+            isMaster = false;
+            document.body.classList.remove('master-active');
+            authStat.innerHTML = "GUEST_ACCESS";
+            appendMsg('ai', "⚠️ **AKSES MASTER DICABUT.**");
+            tts("Akses Master dicabut");
+            userInput.value = '';
+            return;
+        }
 
         appendMsg('user', cmd);
         userInput.value = '';
@@ -296,43 +284,61 @@
                 body: JSON.stringify({ text: cmd, isMasterMode: isMaster })
             });
             const data = await response.json();
-
-            if (data.isMaster !== undefined) {
-                isMaster = data.isMaster;
-                if(isMaster) {
-                    document.body.classList.add('master-active');
-                    authStat.innerHTML = "IMPERIAL_MASTER";
-                    tts("Akses Master diterima.");
-                } else {
-                    document.body.classList.remove('master-active');
-                    authStat.innerHTML = "GUEST_ACCESS";
-                }
-            }
-
-            appendMsg('ai', data.reply || "Gagal sinkronisasi.");
+            
+            appendMsg('ai', data.reply || "Error di server.");
             if (isMaster) tts(data.reply);
         } catch (e) {
-            appendMsg('ai', "SYSTEM_ERROR: Koneksi terputus.");
+            appendMsg('ai', "SYSTEM_ERROR: Koneksi Railway mati.");
         } finally {
             document.getElementById('processing-overlay').style.display = 'none';
         }
     }
 
+    // --- 4. UI HELPERS ---
     function appendMsg(role, text) {
         const frame = document.createElement('div');
         frame.className = `msg-frame ${role}-frame`;
         const content = role === 'ai' ? marked.parse(text) : text;
-        
         frame.innerHTML = `
             <div class="bubble">${content}</div>
             <div class="hud-actions">
-                <button class="hud-btn" onclick="tts(\`${text.replace(/`/g, '\\`').replace(/\n/g, ' ')}\`)"><i class="fas fa-volume-up"></i> REPLAY</button>
-                <button class="hud-btn" onclick="navigator.clipboard.writeText(\`${text.replace(/`/g, '\\`')}\`)"><i class="fas fa-clone"></i> COPY</button>
+                <button class="hud-btn" onclick="tts(\`${text.replace(/`/g, '').replace(/\n/g, ' ')}\`)"><i class="fas fa-volume-up"></i> REPLAY</button>
             </div>
         `;
         chatArea.appendChild(frame);
         chatArea.scrollTop = chatArea.scrollHeight;
     }
+
+    function updateClock() {
+        const bjTime = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit', hour12: false
+        }).format(new Date());
+        document.getElementById('bj-time').innerText = bjTime;
+    }
+    setInterval(updateClock, 1000); updateClock();
+
+    // --- 5. MATRIX RAIN ---
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.onresize = resize; resize();
+    
+    const chars = "龙学智慧北京上海诚实德福10";
+    const drops = Array(Math.floor(canvas.width/20)).fill(1);
+    
+    function draw() {
+        ctx.fillStyle = "rgba(5, 5, 5, 0.15)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = isMaster ? "#00ff95" : "#8b0000";
+        ctx.font = "15px 'Ma Shan Zheng'";
+        drops.forEach((y, i) => {
+            const txt = chars[Math.floor(Math.random()*chars.length)];
+            ctx.fillText(txt, i*20, y*20);
+            if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        });
+    }
+    setInterval(draw, 70);
 
     userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") runCommand(); });
     window.onload = () => appendMsg('ai', "Sistem **Gregorius.AI** aktif.");
