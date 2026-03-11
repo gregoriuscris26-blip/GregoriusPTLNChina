@@ -251,23 +251,23 @@
         const cmd = userInput.value.trim();
         if (!cmd) return;
 
-        // Login Check
-        if (cmd === "gregmanman") {
+        // A. LOGIKA LOGIN MASTER (LOKAL)
+        if (cmd.toLowerCase() === "gregmanman") {
             isMaster = true;
             document.body.classList.add('master-active');
             authStat.innerHTML = "IMPERIAL_MASTER";
-            appendMsg('ai', "🛡️ **AKSES MASTER DITERIMA.** Selamat datang, Lord Gregorius.");
-            tts("Akses Master diterima");
+            appendMsg('ai', "🔓 **AKSES MASTER DITERIMA.** Selamat datang, Lord Gregorius.");
+            tts("Akses Master diterima. Selamat datang Lord Gregorius.");
             userInput.value = '';
             return;
         }
 
-        // Exit Check
-        if (cmd === "gregkeluar") {
+        // B. LOGIKA KELUAR MASTER
+        if (cmd.toLowerCase() === "gregkeluar") {
             isMaster = false;
             document.body.classList.remove('master-active');
             authStat.innerHTML = "GUEST_ACCESS";
-            appendMsg('ai', "⚠️ **AKSES MASTER DICABUT.**");
+            appendMsg('ai', "⚠️ **AKSES MASTER DICABUT.** Kembali ke mode Guest.");
             tts("Akses Master dicabut");
             userInput.value = '';
             return;
@@ -281,14 +281,20 @@
             const response = await fetch("https://gregoriusptlnchina-production.up.railway.app/improve/user_greg", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text: cmd, isMasterMode: isMaster })
+                body: JSON.stringify({ 
+                    text: cmd, 
+                    isMasterMode: isMaster 
+                })
             });
             const data = await response.json();
+
+            appendMsg('ai', data.reply || "Maaf, server tidak memberikan respon.");
             
-            appendMsg('ai', data.reply || "Error di server.");
+            // Auto TTS hanya jika dalam mode Master
             if (isMaster) tts(data.reply);
+
         } catch (e) {
-            appendMsg('ai', "SYSTEM_ERROR: Koneksi Railway mati.");
+            appendMsg('ai', "❌ **SYSTEM_ERROR:** Koneksi ke server Railway gagal.");
         } finally {
             document.getElementById('processing-overlay').style.display = 'none';
         }
@@ -341,7 +347,7 @@
     setInterval(draw, 70);
 
     userInput.addEventListener("keypress", (e) => { if (e.key === "Enter") runCommand(); });
-    window.onload = () => appendMsg('ai', "Sistem **Gregorius.AI** aktif.");
+    window.onload = () => appendMsg('ai', "Sistem **Gregorius.AI** aktif. Selamat datang di pusat informasi beasiswa China.");
 </script>
 </body>
 </html>

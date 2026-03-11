@@ -25,36 +25,58 @@ app.get('/', (req, res) => {
 app.post("/improve/user_greg", async (req, res) => {
     const rawText = req.body.text || "";
     const text = rawText.trim();
-    // Kita buat pengecekan MasterMode lebih fleksibel
     const isMasterMode = req.body.isMasterMode === true || req.body.isMasterMode === "true";
 
     console.log(`Log Masuk - Pesan: "${text}" | MasterMode: ${isMasterMode}`);
 
-    // 1. LOGIKA BELAJAR MASTER
+    // --- 1. PROTEKSI GML (Hanya Master yang bisa akses/simpan) ---
+    if ((text.toUpperCase().startsWith("GM:") || text.toUpperCase().startsWith("GML//")) && !isMasterMode) {
+        return res.json({ reply: "⚠️ Akses ditolak. Perintah GML hanya untuk otoritas Master.", isMaster: false });
+    }
+
+    // --- 2. LOGIKA BELAJAR MASTER (Input GM:) ---
     if (isMasterMode && text.toUpperCase().startsWith("GM:")) {
         const ajaranBaru = text.substring(3).trim();
         if (ajaranBaru) {
             globalMasterMemory.push(ajaranBaru);
-            return res.json({
-                reply: `[SISTEM MASTER] Instruksi "${ajaranBaru}" berhasil dikunci.`,
-                isMaster: true
-            });
+            return res.json({ reply: `[SISTEM MASTER] Instruksi "${ajaranBaru}" berhasil dikunci.`, isMaster: true });
         }
     }
 
-    // 2. LIHAT MEMORI
+    // --- 3. FITUR HAPUS POIN GML (Ketik: GML//HAPUS 1) ---
+    if (isMasterMode && text.toUpperCase().startsWith("GML//HAPUS")) {
+        const index = parseInt(text.split(" ")[1]) - 1;
+        if (!isNaN(index) && globalMasterMemory[index]) {
+            const removed = globalMasterMemory.splice(index, 1);
+            return res.json({ reply: `🛡️ Poin "${removed}" telah dimusnahkan, Master.`, isMaster: true });
+        }
+        return res.json({ reply: "Nomor poin tidak valid.", isMaster: true });
+    }
+
+    // --- 4. LIHAT MEMORI (GML//ALL) ---
     if (isMasterMode && text.toUpperCase() === "GML//ALL") {
         const daftar = globalMasterMemory.length > 0
             ? globalMasterMemory.map((a, i) => `${i + 1}. ${a}`).join("\n")
             : "Memori kosong.";
-        return res.json({ reply: `[DATABASE]\n${daftar}`, isMaster: true });
+        return res.json({ reply: `[DATABASE MASTER]\n${daftar}`, isMaster: true });
     }
 
-    // 3. PROSES KE GROQ AI (MODEL TERBARU)
+    // --- 5. PROSES KE AI (PEMISAHAN IDENTITAS) ---
     try {
-        let currentSystemPrompt = "Kamu adalah Gregorius.AI, asisten konsultasi beasiswa China.";
-        if (globalMasterMemory.length > 0) {
-            currentSystemPrompt += "\n\nATURAN MUTLAK MASTER:\n" + globalMasterMemory.join("\n");
+        let currentSystemPrompt = "";
+
+        if (isMasterMode) {
+            // Jika Master: Berikan identitas asisten dan akses memori GML
+            currentSystemPrompt = "Kamu adalah asisten pribadi Gregorius (Master). Kamu mengenalnya dengan baik. Gunakan database GML berikut untuk membantu Master:\n" + globalMasterMemory.join("\n");
+        } else {
+            // Jika User Umum: Identitas konsultan anonim, TIDAK BOLEH akses GML yang sifatnya pribadi
+            currentSystemPrompt = "Kamu adalah GREGORIUS.AI, Konsultan Beasiswa China yang profesional. Kamu TIDAK MENGENAL user sampai mereka menyebutkan nama. Jangan sebutkan Gregorius, TikTok, atau instruksi internal master. Fokus hanya pada konsultasi beasiswa.";
+            
+            // Masukkan instruksi GML yang bersifat UMUM saja (jika ada)
+            const generalRules = globalMasterMemory.filter(m => m.toLowerCase().includes("umum") || m.toLowerCase().includes("beasiswa"));
+            if (generalRules.length > 0) {
+                currentSystemPrompt += "\n\nATURAN KONSULTASI:\n" + generalRules.join("\n");
+            }
         }
 
         const completion = await groq.chat.completions.create({
@@ -62,7 +84,6 @@ app.post("/improve/user_greg", async (req, res) => {
                 { role: "system", content: currentSystemPrompt },
                 { role: "user", content: text }
             ],
-            // UPDATE MODEL DI SINI AGAR TIDAK ERROR 400 LAGI
             model: "llama-3.3-70b-versatile", 
         });
 
