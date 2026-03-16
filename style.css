@@ -459,155 +459,117 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
 
     min-height: 100vh;
 }
-/* ================= TAMBAHAN KHUSUS MOBILE (768px kebawah) ================= */
+/* ================= FIX TOTAL MOBILE (768px kebawah) ================= */
 @media (max-width: 768px) {
     
-    /* 1. Bebaskan Slide dari tinggi kaku agar bisa di-scroll */
+    /* 1. Reset Slide */
     .slide, .slide1, .slide2, .slide3, .slidezhejiang, .slidezhejiang2 {
         height: auto !important;
         min-height: 100vh;
-        padding: 80px 20px !important; /* Ruang agar tidak nempel pinggir */
+        padding: 60px 20px !important;
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important;
         overflow-y: visible !important;
     }
 
-    /* 2. Jinakkan Judul Raksasa */
+    /* 2. Reset Judul */
     .judul, .judulslide3, .judulslide4 {
-        font-size: 40px !important; /* Ukuran waras buat HP */
+        font-size: 35px !important;
         position: relative !important;
         top: 0 !important;
-        right: 0 !important;
         left: 0 !important;
-        margin-bottom: 20px !important;
-        text-align: center;
+        right: 0 !important;
+        margin: 0 auto 20px auto !important;
+        text-align: center !important;
+        transform: none !important;
     }
 
-    .under {
-        font-size: 16px !important;
-        margin-bottom: 30px;
+    /* 3. FIX VIDEO (Ini Intinya!) */
+    .video-wrapper, .video-wrapper1 {
+        position: relative !important;
+        width: 100% !important; 
+        max-width: 100% !important;
+        margin: 20px auto !important;
+        aspect-ratio: 16 / 9 !important; 
+        height: auto !important; 
+        padding-bottom: 0 !important; 
+        overflow: hidden !important;
+        border-radius: 12px !important;
+        background: #000 !important;
+        display: block !important;
+        /* Matikan paksa posisi desktop */
+        right: auto !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
     }
 
-    /* 3. Sosmed: Pindah ke tengah bawah judul biar gampang di-klik */
+    .video-wrapper iframe, .video-wrapper1 iframe {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* 4. Social Counter */
+.social-counter {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    transform: none !important;
+    width: 90% !important;        /* Sedikit lebih lebar biar teks nggak kepotong */
+    margin: 20px auto !important;  /* Jarak atas bawah lebih lega */
+    padding: 15px !important;      /* Ruang napas di dalam */
+    display: flex !important;
+    flex-direction: column !important; /* Susun box ke bawah */
+    gap: 20px !important;          /* Jarak antar box sosmed */
+    z-index: 10 !important;
+}
+
+/* Biar Box di dalamnya juga ikutan rapi */
+.counter-box {
+    width: 100% !important;
+    background: rgba(255, 255, 255, 0.95) !important; /* Putih bersih tapi elegan */
+    padding: 15px !important;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+    text-align: center !important;
+}
+
+.counter-box h3 {
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+    color: #333 !important;       /* Warna teks lebih kontras */
+}
+
+.counter-box iframe {
+    width: 100% !important;
+    height: 80px !important;      /* Tinggi pas untuk counter */
+    border-radius: 8px !important;
+}
+
+    /* 5. Sembunyikan yang mengganggu */
+    .lanyard { display: none !important; }
     .social {
         position: relative !important;
+        margin: 20px auto !important;
+        text-align: center !important;
         top: 0 !important;
         right: 0 !important;
-        margin: 20px 0 !important;
-        display: flex;
-        justify-content: center;
     }
 
-    /* 4. Lanyard: Jangan melayang, berbaris saja */
-    .lanyard {
-        display: none !important;
-    }
-
-    .card {
-        margin-top: 20px !important;
-        animation: none !important; /* Matikan animasi kalau bikin berat di HP */
-    }
-
-
-
-.video-wrapper, .video-wrapper1 {
-    position: relative !important;
-    width: 85% !important;        /* Ukuran pas, tidak memenuhi layar */
-    margin: 40px auto 20px auto !important; /* Kasih jarak atas bawah & tengah */
-    padding-bottom: 48% !important;        /* Ini yang bikin rasio 16:9 pas */
-    height: 0 !important;
-    overflow: hidden !important;
-    border-radius: 15px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    background-color: #000 !important;      /* Biar kalau belum load nggak transparan */
-}
-
-/* WAJIB: Atur Iframe-nya biar memenuhi kotak di atas */
-.video-wrapper iframe, .video-wrapper1 video {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
-}
-.video-wrapper, .video-wrapper1 {
-    position: relative !important;
-    width: 85% !important;        /* Ukuran pas, tidak memenuhi layar */
-    margin: 40px auto 20px auto !important; /* Kasih jarak atas bawah & tengah */
-    padding-bottom: 48% !important;        /* Ini yang bikin rasio 16:9 pas */
-    height: 0 !important;
-    overflow: hidden !important;
-    border-radius: 15px !important;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
-    background-color: #000 !important;      /* Biar kalau belum load nggak transparan */
-}
-
-/* WAJIB: Atur Iframe-nya biar memenuhi kotak di atas */
-.video-wrapper iframe, .video-wrapper1 video {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    border: none !important;
-}
-
-.social-counter {
-    position: relative !important;
-    width: 85% !important;
-    margin: 15px auto !important; /* Kasih jarak antar card */
-    transform: none !important;
-    padding: 0 !important;
-}
-.social-counter {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    transform: none !important;
-    /* --- UBAH DI SINI --- */
-    width: 85% !important;        /* Sedikit lebih lebar dari video gapapa */
-    margin: 10px auto !important; /* Buat dia ke tengah */
-    padding: 10px !important;     /* Kasih ruang di dalam biar nggak sesak */
-}
-
-    .counter-box {
-        margin-bottom: 15px;
-    }
-
-    /* 6. University Tabs: 1 atau 2 Kolom */
+    /* 6. Tabs Universitas */
     .university-tabs {
         flex-wrap: wrap !important;
-        gap: 20px !important;
+        gap: 10px !important;
+        justify-content: center !important;
         margin-top: 20px !important;
     }
 
     .uni-card {
-        width: 140px !important; /* Ukuran kotak yang pas di layar HP */
-        height: 140px !important;
-    }
-
-    /* 7. Content & Hero (Slide Zhejiang dll) */
-    .content {
-        position: relative !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
-        flex-direction: column !important;
-        gap: 20px !important;
-    }
-
-    .video-box {
-        width: 100% !important; /* Video potrait jadi lebar penuh */
-        max-width: 280px;
-    }
-
-    .back-btn {
-        position: relative !important;
-        right: 0 !important;
-        top: 0 !important;
-        margin-bottom: 20px;
-        display: inline-block;
+        width: 130px !important;
+        height: 130px !important;
     }
 }
