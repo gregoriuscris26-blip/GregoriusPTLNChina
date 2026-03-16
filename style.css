@@ -459,3 +459,118 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
 
     min-height: 100vh;
 }
+/* ================= TAMBAHAN KHUSUS MOBILE (768px kebawah) ================= */
+@media (max-width: 768px) {
+    
+    /* 1. Bebaskan Slide dari tinggi kaku agar bisa di-scroll */
+    .slide, .slide1, .slide2, .slide3, .slidezhejiang, .slidezhejiang2 {
+        height: auto !important;
+        min-height: 100vh;
+        padding: 80px 20px !important; /* Ruang agar tidak nempel pinggir */
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        overflow-y: visible !important;
+    }
+
+    /* 2. Jinakkan Judul Raksasa */
+    .judul, .judulslide3, .judulslide4 {
+        font-size: 40px !important; /* Ukuran waras buat HP */
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        margin-bottom: 20px !important;
+        text-align: center;
+    }
+
+    .under {
+        font-size: 16px !important;
+        margin-bottom: 30px;
+    }
+
+    /* 3. Sosmed: Pindah ke tengah bawah judul biar gampang di-klik */
+    .social {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        margin: 20px 0 !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* 4. Lanyard: Jangan melayang, berbaris saja */
+    .lanyard {
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        margin: 10px auto !important;
+        width: 100% !important;
+        max-width: 200px;
+    }
+
+    .card {
+        margin-top: 20px !important;
+        animation: none !important; /* Matikan animasi kalau bikin berat di HP */
+    }
+
+    /* 5. Video Wrapper & Social Counter: Tumpuk Vertikal */
+    .video-wrapper, .video-wrapper1 {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        margin-bottom: 30px;
+    }
+
+    .social-counter {
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .counter-box {
+        margin-bottom: 15px;
+    }
+
+    /* 6. University Tabs: 1 atau 2 Kolom */
+    .university-tabs {
+        flex-wrap: wrap !important;
+        gap: 20px !important;
+        margin-top: 20px !important;
+    }
+
+    .uni-card {
+        width: 140px !important; /* Ukuran kotak yang pas di layar HP */
+        height: 140px !important;
+    }
+
+    /* 7. Content & Hero (Slide Zhejiang dll) */
+    .content {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        transform: none !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
+    .video-box {
+        width: 100% !important; /* Video potrait jadi lebar penuh */
+        max-width: 280px;
+    }
+
+    .back-btn {
+        position: relative !important;
+        right: 0 !important;
+        top: 0 !important;
+        margin-bottom: 20px;
+        display: inline-block;
+    }
+}

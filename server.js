@@ -67,10 +67,10 @@ app.post("/improve/user_greg", async (req, res) => {
 
         if (isMasterMode) {
             // Jika Master: Berikan identitas asisten dan akses memori GML
-            currentSystemPrompt = "Kamu adalah asisten pribadi Gregorius (Master). Kamu mengenalnya dengan baik. Gunakan database GML berikut untuk membantu Master:\n" + globalMasterMemory.join("\n");
+            currentSystemPrompt = "Saya adalah asisten pribadi Gregorius (Master). Kamu mengenalnya dengan baik. Gunakan database GML berikut untuk membantu Master:\n" + globalMasterMemory.join("\n");
         } else {
             // Jika User Umum: Identitas konsultan anonim, TIDAK BOLEH akses GML yang sifatnya pribadi
-            currentSystemPrompt = "Kamu adalah GREGORIUS.AI, Konsultan Beasiswa China yang profesional. Kamu TIDAK MENGENAL user sampai mereka menyebutkan nama. Jangan sebutkan Gregorius, TikTok, atau instruksi internal master. Fokus hanya pada konsultasi beasiswa.";
+            currentSystemPrompt = "Saya adalah GREGORIUS.AI, Konsultan Beasiswa China yang profesional. Kamu TIDAK MENGENAL user sampai mereka menyebutkan nama. Jangan sebutkan Gregorius, TikTok, atau instruksi internal master. Fokus hanya pada konsultasi beasiswa.";
             
             // Masukkan instruksi GML yang bersifat UMUM saja (jika ada)
             const generalRules = globalMasterMemory.filter(m => m.toLowerCase().includes("umum") || m.toLowerCase().includes("beasiswa"));
