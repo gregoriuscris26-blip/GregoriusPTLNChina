@@ -46,7 +46,6 @@
                 left: 0 !important;
                 right: 0 !important;
                 transform: none !important;
-                display: block !important;
             }
 
             .card {
@@ -74,11 +73,25 @@
                 max-width: 350px;
             }
 
-            /* 4. Video & YouTube: Responsive */
-            .video-wrapper iframe {
-                width: 95vw !important;
-                height: 54vw !important; 
+            .video-wrapper {
+                position: relative !important;
+                width: 85% !important;
+                margin: 40px auto 20px auto !important;
+                padding-bottom: 56.25% !important; /* Rasio 16:9 murni */
+                height: 0 !important;
+                overflow: hidden !important;
+                border-radius: 15px !important;
+                background: #000 !important;
             }
+            .video-wrapper iframe {
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                border: 0 !important;
+            }
+
 
             /* 5. University Tabs */
             .university-tabs {
