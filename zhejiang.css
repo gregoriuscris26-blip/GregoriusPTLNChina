@@ -1,0 +1,75 @@
+.hanya-hp {
+    display: none !important;
+}
+@media (max-width: 768px) {
+    .hanya-hp {
+
+        position: absolute;
+        display: block !important; /* Bisa pakai block, inline, atau flex sesuai kebutuhan */
+        color: azure;
+        background: rgb(21, 21, 21) !important;
+        font-size: 8px;
+        width: 70%;
+        text-align: center;
+        border-radius: 8px;
+        left:10%;
+        margin-top: 90% !important;
+        
+        
+    }
+    .hero{
+        display: none !important;
+    }
+    .back-btn{
+        position: absolute;
+        top:95%;
+        transform: translateX(45%) !important;
+    }
+
+
+    .Kriteria{
+        font-size: 10px;
+        font-family: 'Bitcount Ink', sans-serif;
+
+        }
+
+    
+.video-box {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 350px !important; 
+        margin-bottom: 20px !important; 
+        left: 0 !important;
+        transform: none !important;
+        display: block !important;
+        z-index: 10;
+    }
+.video-box iframe {
+        width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        border-radius: 12px;
+    }
+.doc-buttons {
+        position: relative !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 15px !important;
+        width: 100% !important;
+        max-width: 300px !important;
+        margin: 0 auto !important;
+        top: 0 !important; 
+        transform: none !important;
+    }
+    .slidezhejiang2 {
+        display: flex !important;
+        flex-direction: column !important; /* Susun atas ke bawah */
+        align-items: center !important;
+        justify-content: flex-start !important;
+        height: auto !important; 
+        min-height: 100vh;
+        padding: 80px 20px 40px 20px !important; /* Ruang biar gak nempel tembok */
+        background: #b11116 !important; /* Warna merah Master */
+    }
+}
+
+
