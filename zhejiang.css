@@ -17,6 +17,9 @@
         
         
     }
+    .lanyard{
+        display:none !important;
+    }
     .hero{
         display: none !important;
     }
@@ -60,16 +63,7 @@
         top: 0 !important; 
         transform: none !important;
     }
-    .slidezhejiang2 {
-        display: flex !important;
-        flex-direction: column !important; /* Susun atas ke bawah */
-        align-items: center !important;
-        justify-content: flex-start !important;
-        height: auto !important; 
-        min-height: 100vh;
-        padding: 80px 20px 40px 20px !important; /* Ruang biar gak nempel tembok */
-        background: #b11116 !important; /* Warna merah Master */
-    }
+
 }
 
 

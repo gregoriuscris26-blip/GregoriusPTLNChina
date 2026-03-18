@@ -503,7 +503,7 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
     display: block !important;
     
     /* Reset Desktop */
-    left: auto !important;
+    left: 1% !important;
     right: 5% !important;
     top: auto !important;
     transform: none !important;
@@ -608,14 +608,42 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
         visibility: visible !important;
         opacity: 1 !important;
     }
+.slidezhejiang {
+        position: relative !important;
+        overflow-x: hidden !important;
+    }
+.video-wrapper2 {
+        /* 1. Reset posisi tengah */
+        display: block !important;
+        margin-right: 0 !important;
+        margin-left: 2% !important;   /* Ini kuncinya! Ubah ke 2% kalau mau lebih kiri lagi */
+        
+        /* 2. Ukuran Video */
+        width: 85% !important;        /* Lebar tetap 85% agar tidak menabrak layar kanan */
+        aspect-ratio: 16 / 9 !important;
+        
+        /* 3. Jarak Atas */
+        margin-top: 180px !important; 
+        
+        /* 4. Bersihkan sisa-sisa posisi lama */
+        position: relative !important;
+        left: 0 !important;
+        transform: none !important;
+        
+        border-radius: 12px;
+        overflow: hidden;
+        background: #000;
+        z-index: 100;
+    }
 
-    .slidezhejiang{
-    background-image: url("zhejiangmobileslide1.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    .video-wrapper2 iframe {
+        width: 100% !important;
+        height: 100% !important;
+        border: 0;
+    }
 
-    min-height: 100vh;
+
+
 }
 /* Matikan overlay hitam di mobile */
     .slidezhejiang::after {
