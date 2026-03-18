@@ -512,8 +512,9 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
     .video-wrapper, .video-wrapper1 {
         position: relative !important;
         width: 90% !important;
-        margin: 150px auto !important;
-        display: block !important;
+        display: flex;
+        left: -3px;
+        margin-top: 100px;
     }
 
     .video-wrapper2 {
@@ -532,6 +533,16 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
     .video-wrapper2 iframe {
         width: 100% !important;
         height: 100% !important;
+    }
+    .social-counter {
+        display: flex;
+        position:relative;
+        transform: none;
+        left:1px;
+        width: 85%;
+    }
+    .lanyard{
+        display:none;
     }
 
     /* Tutup Media Query dengan SATU kurung saja */

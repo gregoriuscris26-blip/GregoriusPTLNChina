@@ -1,0 +1,21 @@
+.Judul{
+    display: flex;
+    margin-inline: auto;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    text-align: center;
+    font-family: "Saira Stencil One",sans-serif;
+    font-size: 70px;
+    width: 80%;
+    background-image: url("Oops!.png");
+    background-attachment: fixed;
+    background-position: bottom;
+    background-size: cover;
+    color: azure;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1); /* Putih sangat transparan */
+    backdrop-filter: blur(8px);           /* Efek kaca buram */
+    border: 2px solid rgba(245, 245, 220, 0.5); /* Border beige transparan */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
