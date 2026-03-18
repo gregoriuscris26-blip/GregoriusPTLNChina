@@ -4,7 +4,7 @@
 @media (max-width: 768px) {
     .hanya-hp {
 
-        position: absolute;
+        position: relative;
         display: block !important; /* Bisa pakai block, inline, atau flex sesuai kebutuhan */
         color: azure;
         background: rgb(21, 21, 21) !important;
@@ -12,9 +12,8 @@
         width: 70%;
         text-align: center;
         border-radius: 8px;
-        left:10%;
-        margin-top: 90% !important;
-        
+        top:95%;
+        margin:50px;        
         
     }
     .lanyard{
@@ -38,14 +37,11 @@
 
     
 .video-box {
-        position: relative !important;
-        width: 100% !important;
-        max-width: 350px !important; 
-        margin-bottom: 20px !important; 
-        left: 0 !important;
-        transform: none !important;
-        display: block !important;
-        z-index: 10;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    left:145px;
     }
 .video-box iframe {
         width: 100% !important;
@@ -53,15 +49,13 @@
         border-radius: 12px;
     }
 .doc-buttons {
-        position: relative !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 15px !important;
-        width: 100% !important;
-        max-width: 300px !important;
-        margin: 0 auto !important;
-        top: 0 !important; 
-        transform: none !important;
+    
+    position:relative;
+    display:flex;
+    bottom:350px;
+    flex-direction: column;
+    justify-content: center;
+    right: 120px;
     }
 
 }

@@ -461,10 +461,35 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
 
     min-height: 100vh;
 }
+/* --- DESKTOP --- */
+.video-wrapper2 {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    top: 260px;
+    left: 400px;
+    aspect-ratio: 16/9;
+    width: 50%;
+    height: 50%;
+}
+
+.video-wrapper2 iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+}
+
+/* Matikan overlay (Global/Desktop) */
+.slidezhejiang::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+}
+
 /* ================= FIX TOTAL MOBILE (768px kebawah) ================= */
 @media (max-width: 768px) {
     
-    /* 1. Reset Slide */
     .slide, .slide1, .slide2, .slide3, .slidezhejiang2 {
         height: auto !important;
         min-height: 100vh;
@@ -475,180 +500,39 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
         overflow-y: visible !important;
     }
 
-    /* 2. Reset Judul */
     .judul, .judulslide3, .judulslide4 {
         font-size: 35px !important;
         position: relative !important;
         top: 0 !important;
         left: 0 !important;
-        right: 0 !important;
         margin: 0 auto 20px auto !important;
         text-align: center !important;
-        transform: none !important;
     }
 
-/* 3. FIX VIDEO */
-/* 3. FIX VIDEO - WRAPPERNYA */
-.video-wrapper, .video-wrapper1 {
-    position: relative !important;
-    width: 90% !important;        /* Lebar video di layar HP */
-    max-width: 90% !important;
-    margin: 150px auto !important; /* Naikin angka 60px ini kalau mau lebih turun lagi */
-    margin-left: auto !important;
-    margin-right: auto !important;
-    aspect-ratio: 16 / 9 !important; 
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    background: #000 !important;
-    display: block !important;
-    
-    /* Reset Desktop */
-    left: 1% !important;
-    right: 5% !important;
-    top: auto !important;
-    transform: none !important;
-}
-
-/* IFRAME-NYA HARUS FULL DI DALAM WRAPPER */
-.video-wrapper iframe, .video-wrapper1 iframe {
-    position: absolute !important; /* Pakai absolute biar nempel pas */
-    top: 0 !important;             /* Jangan 50%, nanti dia melorot ke bawah */
-    left: 0 !important;
-    width: 100% !important;        /* Wajib 100% biar gak sisa ruang hitam */
-    height: 100% !important;
-    border: none !important;
-}
-
-    /* 4. Social Counter */
-.social-counter {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    transform: none !important;
-    width: 90% !important;        /* Sedikit lebih lebar biar teks nggak kepotong */
-    margin: 20px auto !important;  /* Jarak atas bawah lebih lega */
-    padding: 15px !important;      /* Ruang napas di dalam */
-    display: flex !important;
-    flex-direction: column !important; /* Susun box ke bawah */
-    gap: 20px !important;          /* Jarak antar box sosmed */
-    z-index: 10 !important;
-}
-
-/* Biar Box di dalamnya juga ikutan rapi */
-.counter-box {
-    width: 100% !important;
-    background: rgba(255, 255, 255, 0.95) !important; /* Putih bersih tapi elegan */
-    padding: 15px !important;
-    border-radius: 15px !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
-    text-align: center !important;
-}
-
-.counter-box h3 {
-    font-size: 16px !important;
-    margin-bottom: 10px !important;
-    color: #333 !important;       /* Warna teks lebih kontras */
-}
-
-.counter-box iframe {
-    width: 100% !important;
-    height: 80px !important;      /* Tinggi pas untuk counter */
-    border-radius: 8px !important;
-}
-
-    /* 5. Sembunyikan yang mengganggu */
-    .lanyard { display: none !important; }
-    .social {
+    .video-wrapper, .video-wrapper1 {
         position: relative !important;
-        margin: 20px auto !important;
-        text-align: center !important;
-        top: 0 !important;
-        right: 0 !important;
-    }
-
-    /* 6. Tabs Universitas */
-    .university-tabs {
-        flex-wrap: wrap !important;
-        gap: 10px !important;
-        justify-content: center !important;
-        margin-top: 20px !important;
-    }
-
-    .uni-card {
-        width: 130px !important;
-        height: 130px !important;
-    }
-        .slide4 {
-        position: relative !important;
-        width: 100vw !important;
-        height: 100dvh !important; /* Paksa Full Screen satu layar HP */
-        overflow: hidden !important;
-        padding: 0 !important;
-    }
-
-    /* Sembunyikan Video Desktop */
-    .desktop-video {
-        display: none !important; /* WAJIB NONE di Mobile */
-    }
-
-    /* Munculkan Video Mobile */
-.mobile-video {
+        width: 90% !important;
+        margin: 150px auto !important;
         display: block !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;  /* Pakai Viewport Width */
-        height: 100dvh !important; /* Pakai Dynamic Viewport Height */
-        object-fit: cover !important;
-        z-index: 0 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        transform: none !important; 
-        
-        visibility: visible !important;
-        opacity: 1 !important;
     }
-.slidezhejiang {
-        position: relative !important;
-        overflow-x: hidden !important;
-    }
-.video-wrapper2 {
-        /* 1. Reset posisi tengah */
+
+    .video-wrapper2 {
         display: block !important;
-        margin-right: 0 !important;
-        margin-left: 2% !important;   /* Ini kuncinya! Ubah ke 2% kalau mau lebih kiri lagi */
-        
-        /* 2. Ukuran Video */
-        width: 85% !important;        /* Lebar tetap 85% agar tidak menabrak layar kanan */
-        aspect-ratio: 16 / 9 !important;
-        
-        /* 3. Jarak Atas */
+        width: 85% !important;
         margin-top: 100px !important; 
-        
-        /* 4. Bersihkan sisa-sisa posisi lama */
         position: relative !important;
-        left: 0 !important;
-        transform: none !important;
-        
+        left: 2% !important; /* Sesuai keinginanmu agak ke kiri */
+        top: 0 !important;    /* Reset desktop */
+        aspect-ratio: 16 / 9 !important;
         border-radius: 12px;
         overflow: hidden;
-        background: #000;
         z-index: 100;
     }
 
     .video-wrapper2 iframe {
         width: 100% !important;
         height: 100% !important;
-        border: 0;
     }
 
-
-
-}
-/* Matikan overlay hitam di mobile */
-    .slidezhejiang::after {
-        display: none !important;
-        content: none !important;
-        background: none !important;
-    }
+    /* Tutup Media Query dengan SATU kurung saja */
 }
