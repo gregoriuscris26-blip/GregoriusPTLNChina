@@ -623,7 +623,7 @@ box-shadow:0 6px 15px rgba(0,0,0,0.15);
         aspect-ratio: 16 / 9 !important;
         
         /* 3. Jarak Atas */
-        margin-top: 180px !important; 
+        margin-top: 100px !important; 
         
         /* 4. Bersihkan sisa-sisa posisi lama */
         position: relative !important;
