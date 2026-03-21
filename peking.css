@@ -67,7 +67,7 @@ body {
     text-shadow: 0 0 10px #00d2ff, 0 0 20px #00d2ff, 0 0 40px #00d2ff;
     transform: scale(1.1); /* Sedikit membesar */
 }
-.slide1,.slide2{
+.slide1,.slide2,.slide3{
     display: block;
     background-image: url("peking.jpg");
     background-repeat: no-repeat;
@@ -587,12 +587,26 @@ section {
 }
 
 .stats-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    width: fit-content;
+    padding: 20px 50px;
     font-family: "Saira Stencil One", sans-serif;
-    color: #d4af37;
-    font-size: 2.5rem;
-    margin-bottom: 50px;
+    font-size: clamp(40px, 6vw, 80px); /* Responsif biar gak menuhi layar */
+    color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 5px;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1); /* Tipis aja biar gak nutupin foto */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid #d4af37; /* Garis emas tegas */
+    border-radius: 10px;
+    /* Efek garis marun di dalam tanpa pake outline-offset yang bikin kepotong */
+    box-shadow: inset 0 0 0 5px rgba(128, 0, 0, 0.5), 
+                0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 /* Layout Grid Kartu */
@@ -611,7 +625,8 @@ section {
     border-top: 4px solid #d4af37; /* Garis emas di atas sebagai aksen */
     
     padding: 40px 25px;
-    width: 250px;
+    width: 350px;
+    height:350px;
     border-radius: 15px;
     transition: all 0.4s ease;
 }
@@ -640,6 +655,7 @@ section {
     line-height: 1.4;
     font-weight: 500;
 }
+
 /* --- MODE HP (Aktif saat lebar layar di bawah 900px) --- */
 @media (max-width: 900px) {
     
@@ -702,5 +718,40 @@ section {
     /* Efek garis marun di dalam tanpa pake outline-offset yang bikin kepotong */
     box-shadow: inset 0 0 0 5px rgba(128, 0, 0, 0.5), 
                 0 15px 35px rgba(0, 0, 0, 0.3);
+  }
+  .stats-title {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    width: 90%;
+    padding: 10px 20px;
+    font-family: "Saira Stencil One", sans-serif;
+    font-size: 40px; /* Responsif biar gak menuhi layar */
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1); /* Tipis aja biar gak nutupin foto */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid #d4af37; /* Garis emas tegas */
+    border-radius: 10px;
+    /* Efek garis marun di dalam tanpa pake outline-offset yang bikin kepotong */
+    box-shadow: inset 0 0 0 5px rgba(128, 0, 0, 0.5), 
+                0 15px 35px rgba(0, 0, 0, 0.3);
+}
+.stats-card {
+    background: rgba(128, 0, 0, 0.2); /* Merah tipis transparan */
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-top: 4px solid #d4af37; /* Garis emas di atas sebagai aksen */
+    
+    padding: 40px 25px;
+    width: 350px;
+    height: 200px;
+    border-radius: 15px;
+    transition: all 0.4s ease;
 }
 }
