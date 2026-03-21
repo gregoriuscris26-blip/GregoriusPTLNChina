@@ -8,6 +8,7 @@ body {
     overflow-x: hidden;
     /* Font default agar tulisan selain judul tetap rapi */
     font-family: sans-serif; 
+
 }
 .Judul {
     display: flex;
@@ -66,7 +67,8 @@ body {
     text-shadow: 0 0 10px #00d2ff, 0 0 20px #00d2ff, 0 0 40px #00d2ff;
     transform: scale(1.1); /* Sedikit membesar */
 }
-.slide1{
+.slide1,.slide2{
+    display: block;
     background-image: url("peking.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -75,10 +77,11 @@ body {
     background-position: center;
     width: 100%;               
     min-height: 100vh;
-    padding-top: 1px;
+    margin-top: 0px;
+    overflow: hidden;
 }
 .video-container {
-    float: left;
+
     display: flex;
     position: relative;
     margin-top: 60px;   
@@ -106,7 +109,7 @@ body {
 .pengantar {
   margin-top: 60px;   
   margin-right: 50px; 
-  float: right;
+
   display: flex;
   width: fit-content;
   background: rgba(255, 255, 255, 0.12);
@@ -130,8 +133,512 @@ body {
 .container {
     display: flex;
     column-gap: 50px;
+    padding: 60px 50px; 
+}
+section {
+    display: block;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+.dokumen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    width: fit-content;
+    padding: 20px 50px;
+    font-family: "Saira Stencil One", sans-serif;
+    font-size: clamp(40px, 6vw, 80px); /* Responsif biar gak menuhi layar */
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1); /* Tipis aja biar gak nutupin foto */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid #d4af37; /* Garis emas tegas */
+    border-radius: 10px;
+    /* Efek garis marun di dalam tanpa pake outline-offset yang bikin kepotong */
+    box-shadow: inset 0 0 0 5px rgba(128, 0, 0, 0.5), 
+                0 15px 35px rgba(0, 0, 0, 0.3);
+}
+.box{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width:95%;
+    margin:20px auto;
 
+}
+.box1{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box2{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box3{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box4{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box5{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box6{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box7{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box8{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box9{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+}
+.box10{
+    border:solid #ffffff;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: dotted;
+    padding: 10px;
+    width:95%;
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca tipis */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid #d4af37; /* Aksen garis emas di kiri agar elite */
+    
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    max-width: 900px; /* Batasi lebar agar tidak terlalu melar di layar gede */
+    
+    color: #f5f5dc; /* Warna krem gading agar senada dengan emas */
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    
+    transition: all 0.3s ease;
+    cursor: default;
+    
+}
+.box1:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box2:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box3:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box4:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box5:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box6:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box7:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box8:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box9:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+.box10:hover{
+    background: rgba(128, 0, 0, 0.4); /* Merah Beida yang lebih tegas */
+    border-left: 5px solid #ffffff; 
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); /* Glow emas halus */
+    transform: scale(1.02) translateX(10px); /* Geser dikit ke kanan biar dinamis */
+}
+/* Container Utama Tombol Melayang */
+.ai-popup {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    background: rgba(128, 0, 0, 0.95); /* Merah Beida */
+    border: 2px solid #d4af37;        /* Border Emas */
+    padding: 10px 18px;
+    border-radius: 50px;
+    text-decoration: none;
+    z-index: 10000;
+    transition: all 0.3s ease;
+    
+    /* Animasi Denyut Emas */
+    animation: pulse-emas 2s infinite;
+}
 
+/* Lingkaran Logo AI */
+.ai-circle {
+    width: 35px;
+    height: 35px;
+    background: #d4af37;
+    color: #800000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Saira Stencil One", sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 12px;
+}
+
+/* Teks Label */
+.ai-label {
+    color: #ffffff;
+    font-family: sans-serif; /* Sesuai body font kamu */
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* LOGIK ANIMASI PULSE */
+@keyframes pulse-emas {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+        transform: scale(1);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);
+        transform: scale(1.05); /* Sedikit membesar pas denyut */
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+        transform: scale(1);
+    }
+}
+
+/* Efek Hover (Pas Mouse Lewat) */
+.ai-popup:hover {
+    animation: none; /* Berhenti denyut pas disentuh */
+    background: #d4af37;
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.ai-popup:hover .ai-circle {
+    background: #ffffff;
+    color: #d4af37;
+}
+
+.ai-popup:hover .ai-label {
+    color: #800000;
+}
+/* Container Utama Section Stats */
+.stats-section {
+    padding: 80px 5%;
+    background: transparent; /* Biar background toga tetap terlihat */
+    text-align: center;
+}
+
+.stats-title {
+    font-family: "Saira Stencil One", sans-serif;
+    color: #d4af37;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Layout Grid Kartu */
+.stats-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* Desain Kartu Statistik */
+.stats-card {
+    background: rgba(128, 0, 0, 0.2); /* Merah tipis transparan */
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-top: 4px solid #d4af37; /* Garis emas di atas sebagai aksen */
+    
+    padding: 40px 25px;
+    width: 250px;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-15px);
+    background: rgba(128, 0, 0, 0.4);
+    border-color: #ffffff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Style Angka Statistik */
+.stats-number {
+    font-family: "Saira Stencil One", sans-serif;
+    font-size: 3.5rem;
+    color: #d4af37;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style Label/Keterangan */
+.stats-label {
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    font-weight: 500;
 }
 /* --- MODE HP (Aktif saat lebar layar di bawah 900px) --- */
 @media (max-width: 900px) {
@@ -174,4 +681,26 @@ body {
         border-radius: 15px;       /* Samain lengkungan sudutnya sama video */
         margin: 0 !important;
     }
+    .dokumen{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    padding: 20px 50px;
+    font-family: "Saira Stencil One", sans-serif;
+    font-size: 35px; /* Responsif biar gak menuhi layar */
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1); /* Tipis aja biar gak nutupin foto */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 2px solid #d4af37; /* Garis emas tegas */
+    border-radius: 10px;
+    /* Efek garis marun di dalam tanpa pake outline-offset yang bikin kepotong */
+    box-shadow: inset 0 0 0 5px rgba(128, 0, 0, 0.5), 
+                0 15px 35px rgba(0, 0, 0, 0.3);
+}
 }
